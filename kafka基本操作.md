@@ -14,3 +14,19 @@ root@worker02:/home/jeff/kafka_2.13-3.9.1# bin/kafka-topics.sh --describe --boot
 Topic: test     TopicId: bd1OrslvRE6l19zXV0Uq8w PartitionCount: 1       ReplicationFactor: 1    Configs:
         Topic: test     Partition: 0    Leader: 0       Replicas: 0     Isr: 0  Elr: N/A        LastKnownElr: N/A
 ```
+### 3.启动生产者
+```bash
+root@worker02:/home/jeff/kafka_2.13-3.9.1# bin/kafka-console-producer.sh --topic test --bootstrap-server localhost:9092
+>jeff
+>hello
+>1
+>agdsg
+```
+### 4.启动消费者
+```bash
+root@worker02:/home/jeff/kafka_2.13-3.9.1# bin/kafka-console-consumer.sh --topic test --bootstrap-server localhost:9092
+jeff
+hello
+1
+agdsg
+```
