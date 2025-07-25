@@ -85,3 +85,7 @@ void KafkaConsumer::pullMessage() {
         delete msg;
     }
 }
+
+KafkaConsumer::~KafkaConsumer() {
+  
+}
