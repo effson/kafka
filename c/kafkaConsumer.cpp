@@ -38,5 +38,17 @@ KafkaConsumer::KafkaConsumer(const std::string &brokers
     errCode = m_config->set("bootstrap.servers", m_brokers, errStr); 
     if (errCode != RdKafka::Conf::CONF_OK) {
       std::cout << "Fail to set conf.m_brokers" << errStr << std::endl;
-    }                               
+    }  
+
+    errCode = m_config->set("max.partition.fetch.bytes", "1024000", errStr); 
+    if (errCode != RdKafka::Conf::CONF_OK) {
+      std::cout << "Fail to set conf.max.partition.fetch.bytes" << errStr << std::endl;
+    } 
+
+    errCode = m_config->set("partition.assignment.strategy", "range", errStr); 
+    if (errCode != RdKafka::Conf::CONF_OK) {
+      std::cout << "Fail to set conf.partition.assignment.strategy" << errStr << std::endl;
+    } 
+
+    m_topicConfig = RdKafka::Conf::create(RdKafka::Conf::CONF_TOPIC);                               
 }
