@@ -51,7 +51,7 @@ KafkaConsumer::KafkaConsumer(const std::string &brokers
     } 
 
     m_topicConfig = RdKafka::Conf::create(RdKafka::Conf::CONF_TOPIC);
-    if (m_consumer == NUL) {
+    if (m_consumer == NULL) {
         std::cout << "Create consumer " << m_consumer->name() << std::endl;
     }                               
 }
