@@ -44,7 +44,7 @@ private:
     std::vector<std::string> m_topicvector;
     int m_partition;             
     
-    RdKafka::Conf *m_config = nullptr;       
+    RdKafka::Conf *m_topicConfig = nullptr;       
     RdKafka::Consumer *m_consumer = nullptr;
    
     ConsumerEventCb *m_event_cb = nullptr;         // 事件回调 (错误、日志等)
