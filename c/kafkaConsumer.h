@@ -37,7 +37,7 @@ public:
                   const std::vector<std::string> &topics,
                   int partition);
     ~KafkaConsumer();
-
+    void pullMessage();
 private:
     std::string m_brokers;
     std::string m_groupID;
