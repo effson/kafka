@@ -91,6 +91,6 @@ KafkaConsumer::~KafkaConsumer() {
     delete m_config;
     delete m_topicConfig;
     delete m_consumer;
-  ``delete m_event_cb;
+    delete m_event_cb;
     delete m_rebalance_cb;
 }
