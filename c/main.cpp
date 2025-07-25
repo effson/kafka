@@ -1,8 +1,8 @@
-#include "kafkaConsumer.h"
+#include "KafkaConsumer.h"
 
 int main(int argc, char *argv[]) {
     std::string brokers;
-    std::string groupid
+    std::string groupid;
     char **temp_topics;
     std::vector<std::string> topics;
     int topic_cnt;
@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 
     brokers = argv[1];
     groupid = argv[2];
-    temp_topics = &srgv[3];
+    temp_topics = &argv[3];
     topic_cnt = argc - 3;
 
     for (int i = 0; i < topic_cnt; i++) {
