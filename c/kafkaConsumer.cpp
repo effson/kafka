@@ -14,15 +14,29 @@ KafkaConsumer::KafkaConsumer(const std::string &brokers
     m_config = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
 
     m_event_cb = new ConsumerEventCb;
-    errCode = m_config->set("event_cb".m_event_cb, errStr);
+    errCode = m_config->set("event_cb", m_event_cb, errStr);
     if (errCode != RdKafka::Conf::CONF_OK) {
       std::cout << "Fail to set conf.event_cb" << errStr << std::endl;
     }
                                
     m_rebalance_cb = new ConsumerRebalanceCb;
-    errCode = m_config->set("rebalance_cb".m_rebalance_cb, errStr);
+    errCode = m_config->set("rebalance_cb", m_rebalance_cb, errStr);
     if (errCode != RdKafka::Conf::CONF_OK) {
       std::cout << "Fail to set conf.rebalance_cb" << errStr << std::endl;
     }
                                
+    errCode = m_config->set("enable_partition.eof", "false", errStr); 
+    if (errCode != RdKafka::Conf::CONF_OK) {
+      std::cout << "Fail to set conf.enable_partition.eof" << errStr << std::endl;
+    }    
+
+    errCode = m_config->set("group.id", m_groupID, errStr); 
+    if (errCode != RdKafka::Conf::CONF_OK) {
+      std::cout << "Fail to set conf.group.id" << errStr << std::endl;
+    }    
+
+    errCode = m_config->set("bootstrap.servers", m_brokers, errStr); 
+    if (errCode != RdKafka::Conf::CONF_OK) {
+      std::cout << "Fail to set conf.m_brokers" << errStr << std::endl;
+    }                               
 }
