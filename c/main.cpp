@@ -21,4 +21,11 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < topic_cnt; i++) {
         topics.push_back(temp_topics[i]);
     }
+
+    KafkaConsumer consumer(brokers, groupid, topics, RdKafka::Topic::OFFSET_BEGINNING);
+
+    consumer.pullMessage();
+
+    RdKafka::wait_destroyed(5000);
+    return 0;
 }
