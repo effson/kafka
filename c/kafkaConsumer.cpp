@@ -72,3 +72,16 @@ void msg_consume(RdKafka::Message *msg, void *opaque) {
           break;
     }
 }
+
+void KafkaConsumer::pullMessage() {
+    RdKafka::ErrorCode errCode = m_consumer->subscribe(m_topicVector);
+    if (errCode != RdKafka::ERROR_NO_ERROR) {
+        std::cout << "Subscribe failed: " << RdKafka::err2str(errorCode)
+                  << std::endl;
+    }
+    while (true) {
+        RdKafka::Message * msg = m_consumer(1000);
+        msg_consume(msg, NULL);
+        delete msg;
+    }
+}
