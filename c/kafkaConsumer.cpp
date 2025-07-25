@@ -50,5 +50,8 @@ KafkaConsumer::KafkaConsumer(const std::string &brokers
       std::cout << "Fail to set conf.partition.assignment.strategy" << errStr << std::endl;
     } 
 
-    m_topicConfig = RdKafka::Conf::create(RdKafka::Conf::CONF_TOPIC);                               
+    m_topicConfig = RdKafka::Conf::create(RdKafka::Conf::CONF_TOPIC);
+    if (m_consumer == NUL) {
+      std::cout << "Create consumer " << m_consumer->name() << std::endl;
+    }                               
 }
