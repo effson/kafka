@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(KafkaProducerDemo)
+project(KafkaProducer)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -23,10 +23,10 @@ set(SOURCES
 )
 
 # 编译可执行文件
-add_executable(kafka_producer_demo ${SOURCES})
+add_executable(KafkaProducer ${SOURCES})
 
 # 链接静态或动态库（根据你是否编译了 .a 或 .so）
-target_link_libraries(kafka_producer_demo
+target_link_libraries(KafkaProducer
     rdkafka++
     rdkafka
     pthread    # librdkafka依赖
