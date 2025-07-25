@@ -1,7 +1,7 @@
 #include "KafkaConsumer.h"
 
-KafkaConsumer::KafkaConsumer(const std::string &brokers
-                             const std::string &groupID
+KafkaConsumer::KafkaConsumer(const std::string &brokers,
+                             const std::string &groupID,
                              const std::vector<std::string> &topics,
                              int partition){
     m_brokers = broker;
