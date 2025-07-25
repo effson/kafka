@@ -2,6 +2,34 @@
 #include <vector>
 #include <iostream>
 
+class ConsumerRebalanceCb : public RdKafka::RebalanceCb {
+private:
+    static void printTopicPartition(const std::vector<RdKafka::TopicPartition *> &partitions){
+        for (unsigned int i = 0; i < partitions.size(); i++){
+            std::cerr << partitions[i]->topic() << "["
+                      << partitions[i]->partition() << "], ";
+        }
+        std::cerr << "\n";
+    }
+
+public:
+    void rebalance_cb(RdKafka::KafkaConsumer *consumer, RdKafka::ErrorCode err,
+                      std::vector<RdKafka::TopicPartition *> &partitions) {
+        std::cerr << "RebalanceCb" << RdKafka::err2str(err) << ":";
+        printTopicPartition(partitions);
+        if (err == RdKafka::ERR__ASSIGN_PARTITIONS) {
+            consumer->assign(partitions);
+            partition_count = (int)partitions.size();
+        } else {
+            consumer->unassign();
+            partition_count = 0;
+        }
+    }
+
+private:
+    int partition_count;
+}; 
+
 class KafkaConsumer {
 public:
     KafkaConsumer(const std::string &brokers,
