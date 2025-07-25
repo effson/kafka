@@ -1,0 +1,4 @@
+class KafkaConsumer {
+public:
+    
+};
