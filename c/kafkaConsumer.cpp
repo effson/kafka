@@ -87,5 +87,8 @@ void KafkaConsumer::pullMessage() {
 }
 
 KafkaConsumer::~KafkaConsumer() {
-  
+    m_consumer->close();
+    delete m_config;
+    delete m_topicConfig;
+    delete m_consumer;
 }
