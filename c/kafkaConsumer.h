@@ -1,6 +1,28 @@
 #include <string>
+#include "rdkafkacpp.h"
 #include <vector>
 #include <iostream>
+
+
+class ConsumerEventCb : public RdKafka::EventCb {
+public:
+    void event_cb(RdKafka::Event &event) override {
+        switch (event.type()) {
+        case RdKafka::Event::EVENT_ERROR:
+            std::cerr << "ERROR (" << RdKafka::err2str(event.err()) << "): " << event.str() << std::endl;
+            break;
+        case RdKafka::Event::EVENT_STATS:
+            std::cout << "STATS: " << event.str() << std::endl;
+            break;
+        case RdKafka::Event::EVENT_LOG:
+            std::cout << "LOG-" << event.severity() << "-" << event.fac() << ": " << event.str() << std::endl;
+            break;
+        default:
+            std::cout << "EVENT " << event.type() << ": " << event.str() << std::endl;
+            break;
+        }
+    }
+};
 
 class ConsumerRebalanceCb : public RdKafka::RebalanceCb {
 private:
@@ -25,7 +47,6 @@ public:
             partition_count = 0;
         }
     }
-
 private:
     int partition_count;
 }; 
@@ -44,8 +65,9 @@ private:
     std::vector<std::string> m_topicvector;
     int m_partition;             
     
-    RdKafka::Conf *m_topicConfig = nullptr;       
-    RdKafka::Consumer *m_consumer = nullptr;
+    RdKafka::Conf *m_topicConfig = nullptr; 
+    RdKafka::Conf *m_config = nullptr;      
+    RdKafka::KafkaConsumer *m_consumer = nullptr;
    
     ConsumerEventCb *m_event_cb = nullptr;         // 事件回调 (错误、日志等)
     ConsumerRebalanceCb *m_rebalance_cb = nullptr; // 再平衡回调 (当消费者组发生变化时)    
