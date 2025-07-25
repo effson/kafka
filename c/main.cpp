@@ -12,4 +12,13 @@ int main(int argc, char *argv[]) {
                 argv[0]);
         return 1;
     }
+
+    brokers = argv[1];
+    groupid = argv[2];
+    temp_topics = &srgv[3];
+    topic_cnt = argc - 3;
+
+    for (int i = 0; i < topic_cnt; i++) {
+        topics.push_back(temp_topics[i]);
+    }
 }
